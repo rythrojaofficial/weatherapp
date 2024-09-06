@@ -5,11 +5,20 @@
     font-size: normal;
   }
 
+*{ box-sizing: border-box;}
+body{
+  font-family: 'gFonts-Inter';
+  background-image: url("images/sun-pattern.png");
+  background-repeat: repeat;
+}
 
+.app-container {
+  background-color: rgb(100, 106, 192);
+}
 
   
-   .hello {
-     color: blueviolet;
-    font-family: 'gFonts-Inter';
-     /* background: url('./images/icon.png'); */
-   }
+.hello {
+  color: blueviolet;
+font-family: 'gFonts-Inter';
+  /* background: url('./images/icon.png'); */
+}
