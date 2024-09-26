@@ -24,8 +24,7 @@ export async function getWeather(apimethod, location) {
   console.table(weatherData.currentConditions);
   console.table({
     conditions: weatherData.currentConditions.conditions,
-    tempmin: weatherData.currentConditions.tempmin,
-    tempmax: weatherData.currentConditions.tempmax,
+    temp: weatherData.currentConditions.temp,
     feelslike: weatherData.currentConditions.feelslike,
     precipprob: weatherData.currentConditions.precipprob,
     icon: weatherData.currentConditions.icon,
