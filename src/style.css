@@ -62,6 +62,17 @@ body{
   grid-column-start: 1;
   grid-column-end: 5;
   background-color: rgb(87, 133, 133);
+  /* subgrid */
+  display: grid;
+  grid-template-columns: auto auto;
+}
+#weather-forecast{
+  grid-column-start: 1;
+  grid-column-end: 2;
+  /* background-color: aquamarine; */
+}
+#weather-numbers{
+  grid-column: 2 / 3;
 }
 
 /* children of app container */
