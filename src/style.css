@@ -24,7 +24,7 @@ body{
   display: grid;
   grid-gap: 1rem;
   grid-template-columns: repeat(4 auto);
-  grid-auto-rows: 100px;
+  grid-auto-rows: auto;
   /* visibility color */
   /* background-color: rgb(192, 185, 89); */
   
@@ -79,4 +79,12 @@ body{
 .app-container > div{
   padding: 1rem;
   border-radius: 1rem;
+}
+
+.conditions-label{
+  font-weight: 600;
+}
+#current-conditons-title{
+  font-weight: 600;
+  font-size: 1.2rem;
 }
