@@ -17,7 +17,7 @@ export function populateOptions() {
     let populateCondition = new HtmlElement(
       "div",
       parent,
-      { id: `current-${con}` },
+      { class: "current-display", id: `current-${con}` },
       `current-${con}`
     );
   });
@@ -33,18 +33,20 @@ export function populateOptions() {
     let populateNumber = new HtmlElement(
       "div",
       parent,
-      { id: `current-${num}` },
+      { class: "current-display", id: `current-${num}` },
       `current-${num}`
     );
   });
 }
 
 export function changeDomOnQuery(dataObj) {
+  changeLocationOnQuery(dataObj);
+  let weather = dataObj.currentConditions;
   for (let i = 0; i < domNumbersArray.length; i++) {
     const condition = domNumbersArray[i];
     // console.log(dataObj[condition]);
     const domElement = document.getElementById(`current-${domNumbersArray[i]}`);
-    domElement.innerText = dataObj[condition];
+    domElement.innerText = weather[condition];
   }
   for (let i = 0; i < domConditionsArray.length; i++) {
     const condition = domConditionsArray[i];
@@ -52,6 +54,14 @@ export function changeDomOnQuery(dataObj) {
     const domElement = document.getElementById(
       `current-${domConditionsArray[i]}`
     );
-    domElement.innerText = dataObj[condition];
+    domElement.innerText = weather[condition];
   }
+}
+
+function changeLocationOnQuery(obj) {
+  const fullAddress = obj.address;
+  const addressArray = fullAddress.split(" ");
+  // console.log(addressArray[0]);
+  document.getElementById("location-main").innerText = addressArray[0];
+  document.getElementById("location-sub").innerText = addressArray[1];
 }

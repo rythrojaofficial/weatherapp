@@ -20,7 +20,7 @@ export async function getWeather(apimethod, location) {
 
   const response = await fetch(myQuery);
   const weatherDataObj = await response.json();
-  const currentConditionsObj = weatherDataObj.currentConditions;
-  console.table(weatherDataObj);
-  return currentConditionsObj;
+  // const currentConditionsObj = weatherDataObj.currentConditions;
+  // console.table(weatherDataObj);
+  return weatherDataObj;
 }
