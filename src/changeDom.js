@@ -1,9 +1,10 @@
 const domLocationArray = ["icon", "main", "area", "time"];
-const domConditionsArray = ["icon", "conditions"];
-const domNumbersArray = ["temp", "feelslike", "precipprob"];
+const domConditionsArray = ["icon", "conditions", "description"];
+const domNumbersArray = ["temp", "tempmin", "tempmax", "sunset", "precipprob"];
 
 const domArrays = [domConditionsArray, domNumbersArray];
 
+import { cond } from "lodash";
 import { HtmlElement } from "./htmlElement.js";
 export function populateOptions() {
   domConditionsArray.forEach((con) => {
@@ -41,12 +42,25 @@ export function populateOptions() {
 
 export function changeDomOnQuery(dataObj) {
   changeLocationOnQuery(dataObj);
-  let weather = dataObj.currentConditions;
+  const dayWeather = dataObj.days[0];
+  const currentWeather = dataObj.currentConditions;
+
   for (let i = 0; i < domNumbersArray.length; i++) {
     const condition = domNumbersArray[i];
-    // console.log(dataObj[condition]);
-    const domElement = document.getElementById(`current-${domNumbersArray[i]}`);
-    domElement.innerText = weather[condition];
+    console.log({
+      currentWeather: currentWeather[condition],
+      dayWeather: dayWeather[condition],
+    });
+    const domElement = document.getElementById(`current-${condition}`);
+    switch (condition) {
+      case "temp":
+      case "precipprob":
+        domElement.innerText = currentWeather[condition];
+        break;
+      default:
+        domElement.innerText = dayWeather[condition];
+        break;
+    }
   }
   for (let i = 0; i < domConditionsArray.length; i++) {
     const condition = domConditionsArray[i];
@@ -54,7 +68,21 @@ export function changeDomOnQuery(dataObj) {
     const domElement = document.getElementById(
       `current-${domConditionsArray[i]}`
     );
-    domElement.innerText = weather[condition];
+    switch (condition) {
+      case "description":
+        domElement.innerText = dataObj.description;
+        break;
+      default:
+        domElement.innerText = currentWeather[condition];
+        break;
+    }
+    // if (domConditionsArray[i] === "description") {
+    //   domElement.innerText = dataObj.description;
+    // } else {
+    //   domElement.innerText = currentWeather[condition];
+    //   // console.log(currentWeather[condition]);
+    //   break;
+    // }
   }
 }
 
