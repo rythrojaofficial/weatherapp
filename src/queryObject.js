@@ -1,5 +1,5 @@
 export class VisualCrossingQuery {
-  constructor(method, location) {
+  constructor(location, method = "") {
     this.apikey = "RAEHHYGPKLFCAP835LPQWNMQ9";
     this.method = method;
     this.location = location;

@@ -91,3 +91,7 @@ body{
 #current-display{
   font-size: 1.4rem;
 }
+
+.svg-icon{
+  height: 2.5rem;
+}

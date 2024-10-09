@@ -4,8 +4,8 @@ const domNumbersArray = ["temp", "tempmin", "tempmax", "sunset", "precipprob"];
 
 const domArrays = [domConditionsArray, domNumbersArray];
 
-import { cond } from "lodash";
 import { HtmlElement } from "./htmlElement.js";
+
 export function populateOptions() {
   domConditionsArray.forEach((con) => {
     let parent = document.getElementById("weather-forecast");
@@ -47,15 +47,20 @@ export function changeDomOnQuery(dataObj) {
 
   for (let i = 0; i < domNumbersArray.length; i++) {
     const condition = domNumbersArray[i];
-    console.log({
-      currentWeather: currentWeather[condition],
-      dayWeather: dayWeather[condition],
-    });
     const domElement = document.getElementById(`current-${condition}`);
     switch (condition) {
+      case "sunset":
+        domElement.innerText = objTime(dayWeather[condition]);
+        break;
       case "temp":
+        domElement.innerText = degreesF(currentWeather[condition]);
+        break;
+      case "tempmin":
+      case "tempmax":
+        domElement.innerText = degreesF(dayWeather[condition]);
+        break;
       case "precipprob":
-        domElement.innerText = currentWeather[condition];
+        domElement.innerText = chanceOfPrecip(currentWeather[condition]);
         break;
       default:
         domElement.innerText = dayWeather[condition];
@@ -64,7 +69,6 @@ export function changeDomOnQuery(dataObj) {
   }
   for (let i = 0; i < domConditionsArray.length; i++) {
     const condition = domConditionsArray[i];
-    // console.log(dataObj[condition]);
     const domElement = document.getElementById(
       `current-${domConditionsArray[i]}`
     );
@@ -72,24 +76,58 @@ export function changeDomOnQuery(dataObj) {
       case "description":
         domElement.innerText = dataObj.description;
         break;
+      case "icon":
+        // domElement.innerText = currentWeather[condition];
+        domElement.innerText = "";
+        const iconWrapper = new HtmlElement("div", domElement);
+        const icon = new HtmlElement("img", iconWrapper.element, {
+          src: `../visualcrossingicons/WeatherIcons/SVG/color/${currentWeather[condition]}.svg`,
+          class: "svg-icon",
+        });
+
+        break;
       default:
         domElement.innerText = currentWeather[condition];
         break;
     }
-    // if (domConditionsArray[i] === "description") {
-    //   domElement.innerText = dataObj.description;
-    // } else {
-    //   domElement.innerText = currentWeather[condition];
-    //   // console.log(currentWeather[condition]);
-    //   break;
-    // }
   }
 }
 
 function changeLocationOnQuery(obj) {
   const fullAddress = obj.address;
   const addressArray = fullAddress.split(" ");
-  // console.log(addressArray[0]);
   document.getElementById("location-main").innerText = addressArray[0];
-  document.getElementById("location-sub").innerText = addressArray[1];
+  document.getElementById("location-area").innerText = addressArray[1];
+  document.getElementById("location-time").innerText = objTime(
+    obj.currentConditions.datetime
+  );
+}
+
+function degreesF(num) {
+  return `${num}°F`;
+}
+function objTime(miltime) {
+  let milArray = miltime.split(":");
+  let myInt = milArray[0] / 1;
+  switch (true) {
+    case myInt > 12:
+      myInt += -12;
+      myInt.toString();
+      return `${myInt}:${milArray[1]} PM`;
+      break;
+    case myInt <= 12:
+      return `${miltime} AM`;
+      break;
+    default:
+      console.log("error objtime");
+      break;
+  }
+  if (myInt >= 12) {
+    myInt += -12;
+    myInt.toString();
+    return `${myInt}:${milArray[1]} PM`;
+  }
+}
+function chanceOfPrecip(num) {
+  return `${num}% chance of precipitation currently`;
 }
