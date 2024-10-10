@@ -1,3 +1,7 @@
+const IMG = (imgName) => {
+  return require(`./images/${imgName}`);
+};
+
 const domLocationArray = ["icon", "main", "area", "time"];
 const domConditionsArray = ["icon", "conditions", "description"];
 const domNumbersArray = ["temp", "tempmin", "tempmax", "sunset", "precipprob"];
@@ -81,7 +85,7 @@ export function changeDomOnQuery(dataObj) {
         domElement.innerText = "";
         const iconWrapper = new HtmlElement("div", domElement);
         const icon = new HtmlElement("img", iconWrapper.element, {
-          src: `/src/Icons/color/${currentWeather[condition]}.svg`,
+          src: `{IMG(weatherIcons/${currentWeather[condition]}.svg)}`,
           class: "svg-icon",
         });
 
