@@ -81,7 +81,7 @@ export function changeDomOnQuery(dataObj) {
         domElement.innerText = "";
         const iconWrapper = new HtmlElement("div", domElement);
         const icon = new HtmlElement("img", iconWrapper.element, {
-          src: `/Icons/color/${currentWeather[condition]}.svg`,
+          src: `/src/Icons/color/${currentWeather[condition]}.svg`,
           class: "svg-icon",
         });
 
