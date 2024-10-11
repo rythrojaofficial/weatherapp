@@ -1,5 +1,7 @@
-const weatherIconPath = "../src/weatherIcons/";
-// import clearDay from "./images/weatherIcons/clear-day.svg";
+const weatherIconPath = "../src/assets/";
+// const weatherIconPath =
+//   "https://rythrojaofficial.github.io/weatherapp/src/weatherIcons/";
+// import clearDay from "./assets/weatherIcons/clear-day.svg";
 
 const domLocationArray = ["icon", "main", "area", "time"];
 const domConditionsArray = ["icon", "conditions", "description"];
@@ -81,10 +83,11 @@ export function changeDomOnQuery(dataObj) {
         break;
       case "icon":
         // domElement.innerText = currentWeather[condition];
+        const iconSrc = `${weatherIconPath}${currentWeather[condition]}.svg`;
         domElement.innerText = "";
         const iconWrapper = new HtmlElement("div", domElement);
         const icon = new HtmlElement("img", iconWrapper.element, {
-          src: `${weatherIconPath}${currentWeather[condition]}.svg`,
+          src: iconSrc,
           class: "svg-icon",
         });
 

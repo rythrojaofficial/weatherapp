@@ -15,11 +15,6 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: "./src/index.html",
     }),
-    // new CopyWebpackPlugin({
-    //   patterns: [
-    //     { from: "src/weatherIcons", to: "docs/weatherIcons" }, //to the dist root directory
-    //   ],
-    // }),
   ],
   output: {
     filename: "[name].bundle.js",
