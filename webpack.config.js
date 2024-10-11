@@ -1,5 +1,6 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+// const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = {
   mode: "development",
@@ -14,6 +15,11 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: "./src/index.html",
     }),
+    // new CopyWebpackPlugin({
+    //   patterns: [
+    //     { from: "src/weatherIcons", to: "docs/weatherIcons" }, //to the dist root directory
+    //   ],
+    // }),
   ],
   output: {
     filename: "[name].bundle.js",
@@ -29,6 +35,7 @@ module.exports = {
       },
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        loader: "file-loader",
         type: "asset/resource",
       },
       {
